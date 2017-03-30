@@ -1,0 +1,36 @@
+
+
+
+
+
+
+server {
+#       listen 80 default_server;
+#       listen [::]:80 default_server;
+
+        root /home/app/flisolScesi/TemplateFlisol2017/;
+        index index.html index.htm index.nginx-debian.html;
+
+#	listen 443 ssl default;
+#	ssl on;
+#	ssl_certificate /etc/letsencrypt/live/flisol-scesi-umss.info/fullchain.pem;
+#	ssl_certificate_key /etc/letsencrypt/flisol-scesi-umss.info/privkey.pem;
+
+	listen 443 ssl http2 default_server;
+	listen [::]:443 ssl http2 default_server;
+
+        server_name flisol-scesi-umss.info www.flisol-scesi-umss.info;
+	include snippets/ssl-flisol.info.conf;
+	include snippets/ssl-params.conf;
+#	return 301 https://flisol-scesi-umss.info$request_uri;
+#       server_name flisol-scesi-umss.info;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+server {
+	listen 80;
+	server_name flison-scesi-umss.info;
+	return 301 https://flisol-scesi-umss.info$request_uri;
+}
