@@ -1,0 +1,27 @@
+server{
+    listen 80;
+    root /var/www/html/myci.local;
+    server_name myci.local;
+    index index.php index.html index.htm;
+    autoindex on;
+
+    location / {
+        #try_files $uri $uri/ /index.php?/$request_uri;
+	try_files $uri $uri/ /index.php?$query_string;
+	#try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php$
+    {
+        include snippets/fastcgi-php.conf;
+        #try_files $uri =404;
+        #fastcgi_split_path_info ^(.+\.php)(.*)$;   
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+        #fastcgi_index index.php;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        #include fastcgi_params;
+    }
+    error_page 404 /index.php;
+}
