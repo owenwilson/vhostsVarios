@@ -17,3 +17,7 @@
 ## Contributions
 
 - [owen-wilson](https://github.com/owenwilson)
+
+## Donations
+
+- [voluntary donations! devfrustrado](https://www.paypal.com/paypalme/devfrustrado)
